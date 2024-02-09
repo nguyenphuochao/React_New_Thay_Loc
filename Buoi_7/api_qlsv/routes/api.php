@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 /*
-http://localhost/api_qlsv/api/students  // api lấy danh sách sinh viên
-
+http://localhost/api_qlsv/api/students                      // api lấy danh sách sinh viên   GET
+http://localhost/api_qlsv/api/students                      // api thêm sinh viên            POST
+http://localhost/api_qlsv/api/students/{student}/edit       // api xem chi tiết sinh viên    GET
+http://localhost/api_qlsv/api/students/{student}            // api xóa sinh viên             DELETE
+http://localhost/api_qlsv/api/students/{student}            // api cập nhật sinh viên        PUT
 */
 Route::resource('students', ApiStudentController::class);

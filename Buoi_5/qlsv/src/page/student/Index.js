@@ -3,6 +3,8 @@ import axios from 'axios';
 import StudentList from '../../component/StudentList';
 import Loading from '../../component/Loading';
 import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
+import {Helmet} from "react-helmet";
 function Index() {
     // Hàm lưu trạng thái danh sách sinh viên
     const [items, setItems] = useState([]);
@@ -30,8 +32,11 @@ function Index() {
     return (
         <>
             <div>
+                <Helmet>
+                    <title>Danh sách sinh viên</title>
+                </Helmet>
                 <h1>Danh sách sinh viên</h1>
-                <a href="add.html" className="btn btn-info">Add</a>
+                <NavLink to="create/student" className="btn btn-info">Add</NavLink>
                 <form action="list.html" method="GET">
                     <label className="form-inline justify-content-end">Tìm kiếm: <input type="search" name="search" className="form-control" defaultValue />
                         <button className="btn btn-danger">Tìm</button>

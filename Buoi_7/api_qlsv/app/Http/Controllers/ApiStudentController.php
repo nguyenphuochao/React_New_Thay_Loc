@@ -30,7 +30,6 @@ class ApiStudentController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -41,7 +40,29 @@ class ApiStudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'required|unique:students',
+                'birthday' => 'required',
+                'gender' => 'required'
+            ],
+            [
+                'name.required' => 'Vui lòng nhập họ tên',
+                'name.unique' => 'Họ tên bị trùng',
+                'birthday.required' => 'Vui lòng nhập ngày sinh',
+                'gender.required' => 'Vui lòng chọn giới tính'
+            ]
+        );
+        $student = new Student();
+        $student->name = $request->input('name');
+        $student->birthday = $request->input('birthday');
+        $student->gender = $request->input('gender');
+        $student->save();
+        return response()->json([
+            'data' => $student,
+            'status' => 201,
+            'mess' => 'Thêm mới thành công'
+        ]);
     }
 
     /**
@@ -63,7 +84,12 @@ class ApiStudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = Student::find($id);
+        return response()->json([
+            'data' => $student,
+            'status' => 200,
+            'mess' => 'Success'
+        ]);
     }
 
     /**
