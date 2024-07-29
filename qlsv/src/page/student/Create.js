@@ -15,6 +15,7 @@ function Create() {
             birthday: '',
             gender: ''
         },
+
         // Kiểm tra dữ liệu
         validationSchema: Yup.object({
             name: Yup.string()
@@ -25,21 +26,23 @@ function Create() {
                 .required('Vui lòng chọn giới tính')
 
         }),
+
         // Khi dữ liệu hợp lệ sẽ chạy code onSubmit
         onSubmit: async values => {
             try {
+                console.log(values)
                 // JSON.stringify là hàm chuyển object thành chuỗi dạng json
-                // Trong laravel đã chuyển thành JSON rồi nên chỉ cần truyền vào values hoy
-                const response = await axios.post('http://localhost/api_qlsv/api/students', values);
-                const name = response.data.data.name;
-                toast.success(`Thêm thành công sinh viên ${name}`);
+                const response = await axios.post('http://api_qlsvk99.com/api/v1/students', JSON.stringify(values));
+                const name = response.data.name;
+                toast.success(`Thêm sinh viên ${name} thành công`);
                 navigate('/');
             } catch (error) {
                 console.log(error);
-                toast.error(error.response.data.errors.name[0]);
+                toast.error(error.message);
             }
         }
     });
+
     return (
         <>
             <div>
@@ -51,6 +54,7 @@ function Create() {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-5">
+
                                 <div className="form-group">
                                     <label>Tên</label>
                                     <input type="text" className="form-control" placeholder="Tên của bạn" name="name"
@@ -61,6 +65,7 @@ function Create() {
                                             <div className='text-danger'>{formik.errors.name}</div> : null
                                     }
                                 </div>
+
                                 <div className="form-group">
                                     <label>Birthday</label>
                                     <input type="date" className="form-control" placeholder="Ngày sinh của bạn" name="birthday"
@@ -71,6 +76,7 @@ function Create() {
                                             <div className='text-danger'>{formik.errors.birthday}</div> : null
                                     }
                                 </div>
+
                                 <div className="form-group">
                                     <label>Chọn Giới tính</label>
                                     <select className="form-control" id="gender" name="gender"
@@ -85,10 +91,12 @@ function Create() {
                                             <div className='text-danger'>{formik.errors.gender}</div> : null
                                     }
                                 </div>
+
                                 <div className="form-group">
                                     <button className="btn btn-success" type="submit">Lưu</button>
                                     <NavLink to="/" className="btn btn-warning ml-2">Quay về</NavLink>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

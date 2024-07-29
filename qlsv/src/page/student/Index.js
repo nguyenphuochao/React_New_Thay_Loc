@@ -5,16 +5,20 @@ import Loading from '../../component/Loading';
 import { toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
 import { Helmet } from "react-helmet";
+import Pagination from '../../component/Pagination';
 function Index() {
 
-    // Hàm lưu trạng thái danh sách sinh viên
+    // Trạng thái lưu dữ liệu  danh sách sinh viên từ server trả về
     const [items, setItems] = useState([]);
 
-    // Hàm lưu trạng thái tổng số sinh viênx`
+    // Trạng thái lưu tổng số lượng
     const [totalItem, setTotalItem] = useState(0);
 
-    // Hàm lưu trạng thái Loading
+    // Trạng thái để biết dữ liệu đã về chưa
     const [isLoading, setIsLoading] = useState(false);
+
+    // Trạng thái lưu dữ liệu phân trang
+    const [pagination, setPagination] = useState({ page: 1, totalPage: 0 });
 
     // code trong useEffect sẽ chạy trong 1 lần đầu tiên
     useEffect(() => {
@@ -30,11 +34,12 @@ function Index() {
             console.log(response);
             setItems(response.data.items);
             setTotalItem(response.data.totalItem);
+            setPagination(response.data.pagination);
             setIsLoading(true);
         } catch (error) {
             console.log(error);
             setIsLoading(true);
-            toast.error('API thất bại');
+            toast.error(error.message);
         }
     }
 
@@ -51,11 +56,16 @@ function Index() {
                         <button className="btn btn-danger">Tìm</button>
                     </label>
                 </form>
+
                 {/* Dùng props để truyền data */}
                 {!isLoading ? <Loading /> : <StudentList items={items} />}
+
                 <div>
                     <span>Số lượng: {totalItem}</span>
                 </div>
+
+                <Pagination pagination={pagination} />
+
             </div>
 
         </>

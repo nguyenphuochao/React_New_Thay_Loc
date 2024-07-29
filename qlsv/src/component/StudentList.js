@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 function StudentList({ items }) {
     return (
@@ -18,13 +19,17 @@ function StudentList({ items }) {
                 <tbody>
                     {items.map((item, index) =>
                         <tr key={index}>
-                            <td>{++index}</td>
+                            <td>{index + 1}</td>
                             <td>{item.id}</td>
                             <td>{item.name}</td>
                             <td>{item.birthday}</td>
                             <td>{item.gender}</td>
-                            <td><a href="edit.html">Sửa</a></td>
-                            <td><a data={1} className="delete" href="list.html" type="student">Xóa</a></td>
+                            <td>
+                                <NavLink to={`edit/student/${item.id}`} className="btn btn-warning">Sửa</NavLink>
+                            </td>
+                            <td>
+                                <NavLink to={`edit/student/${item.id}`} className="btn btn-danger">Xóa</NavLink>
+                            </td>
                         </tr>
                     )}
                 </tbody>

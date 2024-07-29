@@ -3,7 +3,7 @@ import React from 'react'
 function Footer() {
     return (
         <>
-            @Copyright 2024
+           <div className="text-center alert alert-success">@Copyright 2024</div>
         </>
     )
 }
