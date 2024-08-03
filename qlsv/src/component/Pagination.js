@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Pagination({pagination}) {
+export default function Pagination({pagination, handlePage}) {
     const totalPage = pagination.totalPage;
     const page = Number(pagination.page);
     const pageNumbers = [];
@@ -13,14 +13,16 @@ export default function Pagination({pagination}) {
             <nav aria-label="Page navigation">
                 <ul className="pagination justify-content-center">
                     <li className="page-item disabled">
-                        <butt className="page-link" href="#" aria-label="Previous">
+                        <button className="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true">«</span>
                             <span className="sr-only">Previous</span>
-                        </butt>
+                        </button>
                     </li>
 
                     {pageNumbers.map(num =>
-                        <li className={`page-item ${page === num ? "active" : ""}`}><button className="page-link">{num}</button></li>
+                        <li key={num} className={`page-item ${page === num ? "active" : ""}`}>
+                            <button onClick={() => handlePage(num)} className="page-link">{num}</button>
+                        </li>
                     )}
 
                     <li className="page-item">

@@ -3,9 +3,11 @@ import axios from 'axios';
 import StudentList from '../../component/StudentList';
 import Loading from '../../component/Loading';
 import { toast } from 'react-toastify';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import Pagination from '../../component/Pagination';
+import Search from '../../component/Search';
+import { updateParam } from '../../helper/util';
 function Index() {
 
     // Trạng thái lưu dữ liệu  danh sách sinh viên từ server trả về
@@ -20,17 +22,47 @@ function Index() {
     // Trạng thái lưu dữ liệu phân trang
     const [pagination, setPagination] = useState({ page: 1, totalPage: 0 });
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    //console.log(searchParams);
+
+    // searchParams.get('page') có giá trị thì trả về, ngược lại thì trả về số 1
+    const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
+
+    // trạng thái search
+    const [search, setSearch] = useState(searchParams.get('search') || '');
+
     // code trong useEffect sẽ chạy trong 1 lần đầu tiên
+    // khi page change thì code trong useEffect(() =>{...}) sẽ chạy lại
     useEffect(() => {
-        getStudent();
-    }, []);
+        getStudents();
+        // eslint-disable-next-line
+    }, [page, search]); // truyền vào tham số để render lại component
+
+    // hàm lấy page truyền props ngược
+    const handlePage = (page) => {
+        //console.log(page);
+        setPage(page);
+
+        const newParams = { page: page };
+        updateParam(searchParams, setSearchParams, newParams);
+    }
+
+    const handleSearch = (e, search) => {
+        e.preventDefault(); // ngăn mặc định, ko cho submit lên server
+        setSearch(search);
+        setPage(1); // reset page thành 1
+        // console.log(search);
+        const newParams = { search: search, page: 1 };
+        updateParam(searchParams, setSearchParams, newParams);
+    }
 
     // luật bên trong hàm là await thì phải dùng async
-    const getStudent = async () => {
+    // mỗi khi page thay đổi thì getStudents() phải chạy lại
+    const getStudents = async () => {
 
         // call api lấy dữ liệu về, sau khi dữ liệu lấy bỏ vào biến items
         try {
-            const response = await axios.get('http://api_qlsvk99.com/api/v1/students');
+            const response = await axios.get(`http://api_qlsvk99.com/api/v1/students?page=${page}&search=${search}`);
             console.log(response);
             setItems(response.data.items);
             setTotalItem(response.data.totalItem);
@@ -47,15 +79,13 @@ function Index() {
         <>
             <div>
                 <Helmet>
-                    <title>Danh sách sinh viên</title>
+                    <title>Danh sách sinh viên | {process.env.REACT_APP_NAME} </title>
                 </Helmet>
                 <h1>Danh sách sinh viên</h1>
-                <NavLink to="create/student" className="btn btn-info">Add</NavLink>
-                <form action="list.html" method="GET">
-                    <label className="form-inline justify-content-end">Tìm kiếm: <input type="search" name="search" className="form-control" defaultValue />
-                        <button className="btn btn-danger">Tìm</button>
-                    </label>
-                </form>
+                <NavLink to="/create" className="btn btn-info">Add</NavLink>
+
+                {/* Search */}
+                <Search handleSearch={handleSearch} search={search} />
 
                 {/* Dùng props để truyền data */}
                 {!isLoading ? <Loading /> : <StudentList items={items} />}
@@ -64,7 +94,8 @@ function Index() {
                     <span>Số lượng: {totalItem}</span>
                 </div>
 
-                <Pagination pagination={pagination} />
+                {/* Phân trang */}
+                <Pagination pagination={pagination} handlePage={handlePage} />
 
             </div>
 

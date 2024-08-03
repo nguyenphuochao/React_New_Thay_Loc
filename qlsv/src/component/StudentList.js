@@ -1,5 +1,6 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+import slugify from 'react-slugify';
 
 function StudentList({ items }) {
     return (
@@ -21,11 +22,13 @@ function StudentList({ items }) {
                         <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{item.id}</td>
-                            <td>{item.name}</td>
+                            <td>
+                                <Link to={`/student/${slugify(item.name)}-${item.id}.html`}>{item.name}</Link>
+                            </td>
                             <td>{item.birthday}</td>
                             <td>{item.gender}</td>
                             <td>
-                                <NavLink to={`edit/student/${item.id}`} className="btn btn-warning">Sửa</NavLink>
+                                <Link to={`/student/edit/${slugify(item.name)}-${item.id}.html`} className="btn btn-warning">Sửa</Link>
                             </td>
                             <td>
                                 <NavLink to={`edit/student/${item.id}`} className="btn btn-danger">Xóa</NavLink>
