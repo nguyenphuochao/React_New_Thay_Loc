@@ -10,6 +10,7 @@ import Edit from '../page/student/Edit';
 // subject
 import { Index as IndexSubject } from '../page/subject/Index';
 import { Create as CreateSubject } from '../page/subject/Create';
+import { Detail as DetailSubject } from '../page/subject/Detail';
 
 // register
 import { Index as IndexRegister } from '../page/register/Index';
@@ -31,6 +32,7 @@ export default function Router() {
                     {/* Subject */}
                     <Route path="/subject" element={<IndexSubject />} />
                     <Route path="/subject/create" element={<CreateSubject />} />
+                    <Route path="/subject/:slug" element={<DetailSubject />} />
 
 
                     {/* Register */}

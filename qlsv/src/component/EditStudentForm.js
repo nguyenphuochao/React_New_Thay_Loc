@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 
 export default function EditStudentForm({ student, handleUpdate }) {
@@ -75,7 +75,7 @@ export default function EditStudentForm({ student, handleUpdate }) {
                                 <label>Chọn Giới tính</label>
                                 <select className="form-control" id="gender" name="gender"
                                     onChange={formik.handleChange} value={formik.values.gender} onBlur={formik.handleBlur}>
-                                    <option value="">Chọn giới tính</option>    
+                                    <option value="">Chọn giới tính</option>
                                     <option value="nam">Nam</option>
                                     <option value="nữ">Nữ</option>
                                     <option value="khác">Khác</option>
@@ -91,7 +91,7 @@ export default function EditStudentForm({ student, handleUpdate }) {
                                 <button className="btn btn-success" type="submit">Lưu</button>
                                 <Link to="/" className="btn btn-warning ml-2">Quay về</Link>
                             </div>
-                        
+
                         </div>
                     </div>
                 </div>

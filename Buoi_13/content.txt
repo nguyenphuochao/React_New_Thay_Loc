@@ -1,0 +1,2 @@
+- Gọi API thực hiện xóa sinh viên
+- Xây dựng CRUD subject giống student

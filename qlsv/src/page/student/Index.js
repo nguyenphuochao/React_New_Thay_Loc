@@ -59,7 +59,6 @@ function Index() {
     // luật bên trong hàm là await thì phải dùng async
     // mỗi khi page thay đổi thì getStudents() phải chạy lại
     const getStudents = async () => {
-
         // call api lấy dữ liệu về, sau khi dữ liệu lấy bỏ vào biến items
         try {
             const response = await axios.get(`http://api_qlsvk99.com/api/v1/students?page=${page}&search=${search}`);
@@ -71,6 +70,20 @@ function Index() {
         } catch (error) {
             console.log(error);
             setIsLoading(true);
+            toast.error(error.message);
+        }
+    }
+
+    // Xác nhận xóa
+    const handleConfirmDialog = async (currentId) => {
+        // call API xóa sinh viên
+        try {
+            const response = await axios.delete(`http://api_qlsvk99.com/api/v1/students/${currentId}`);
+            toast.success(response.data);
+            getStudents();
+            setPage(1); // reset page thành 1
+        } catch (error) {
+            console.log(error);
             toast.error(error.message);
         }
     }
@@ -88,7 +101,7 @@ function Index() {
                 <Search handleSearch={handleSearch} search={search} />
 
                 {/* Dùng props để truyền data */}
-                {!isLoading ? <Loading /> : <StudentList items={items} />}
+                {!isLoading ? <Loading /> : <StudentList items={items} handleConfirmDialog={handleConfirmDialog} />}
 
                 <div>
                     <span>Số lượng: {totalItem}</span>

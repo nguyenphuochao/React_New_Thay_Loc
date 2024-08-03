@@ -27,9 +27,9 @@ export function Index() {
     useEffect(() => {
         getSubject();
         // eslint-disable-next-line
-    }, [page,search])
+    }, [page, search])
 
-    // phân trang
+    // pagination
     const handlePage = (page) => {
         setPage(page);
         const newParams = { page: page };
@@ -61,16 +61,30 @@ export function Index() {
         }
     }
 
+    // confirm delete
+    const handleConfirmDialog = async (currentId) => {
+        try {
+            // call API delete
+            const response = await axios.delete(`http://api_qlsvk99.com/api/v1/subjects/${currentId}`);
+            toast.success(response.data);
+            getSubject();
+            setPage(1);
+        } catch (error) {
+            console.log(error.message);
+            toast.error(error.message);
+        }
+    }
+
     return (
         <>
             <div>
                 <h1>Danh sách Môn Học</h1>
-                <NavLink to="/subject/create" className="btn btn-primary">Thêm</NavLink>
+                <NavLink to="/subject/create" className="btn btn-info">Add</NavLink>
 
                 {/* Search */}
                 <Search handleSearch={handleSearch} search={search} />
 
-                {!loaded ? <Loading /> : <SubjectList items={items} />}
+                {!loaded ? <Loading /> : <SubjectList items={items} handleConfirmDialog={handleConfirmDialog} />}
 
                 <div>
                     <span>Số lượng: {totalItem}</span>

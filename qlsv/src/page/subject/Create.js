@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import React from 'react'
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
@@ -74,6 +74,7 @@ export function Create() {
                                 {/* Action */}
                                 <div className="form-group">
                                     <button className="btn btn-success" type="submit">Lưu</button>
+                                    <Link to='/subject' className="btn btn-warning ml-2">Quay về</Link>
                                 </div>
 
                             </div>

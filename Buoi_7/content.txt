@@ -1,2 +1,2 @@
 - Gọi API lấy danh sách sinh viên
-- Gọi API thêm sinh viên
+- Xây dựng trang thêm sinh viên
