@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { updateParam } from '../../helper/util';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import Search from '../../component/Search';
+import { Helmet } from 'react-helmet';
 
 export function Index() {
 
@@ -78,6 +79,9 @@ export function Index() {
     return (
         <>
             <div>
+                <Helmet>
+                    <title>Danh Sách Môn Học | {process.env.REACT_APP_NAME}</title>
+                </Helmet>
                 <h1>Danh sách Môn Học</h1>
                 <NavLink to="/subject/create" className="btn btn-info">Add</NavLink>
 

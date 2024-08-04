@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
 import Layout from '../component/Layout';
+
 //  student
 import Index from '../page/student/Index';
 import Create from '../page/student/Create';
@@ -11,6 +12,7 @@ import Edit from '../page/student/Edit';
 import { Index as IndexSubject } from '../page/subject/Index';
 import { Create as CreateSubject } from '../page/subject/Create';
 import { Detail as DetailSubject } from '../page/subject/Detail';
+import { Edit as EditSubject } from '../page/subject/Edit';
 
 // register
 import { Index as IndexRegister } from '../page/register/Index';
@@ -23,6 +25,7 @@ export default function Router() {
         <>
             <Routes>
                 <Route path="/" element={<Layout />} >
+
                     {/* Student */}
                     <Route path="" element={<Index />} />
                     <Route path="/create" element={<Create />} />
@@ -33,10 +36,12 @@ export default function Router() {
                     <Route path="/subject" element={<IndexSubject />} />
                     <Route path="/subject/create" element={<CreateSubject />} />
                     <Route path="/subject/:slug" element={<DetailSubject />} />
+                    <Route path="/subject/edit/:slug" element={<EditSubject />} />
 
 
                     {/* Register */}
                     <Route path="/register" element={<IndexRegister />} />
+
                 </Route>
             </Routes>
         </>
