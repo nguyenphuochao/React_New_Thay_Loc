@@ -16,9 +16,8 @@ import { Edit as EditSubject } from '../page/subject/Edit';
 
 // register
 import { Index as IndexRegister } from '../page/register/Index';
-
-
-
+import { Create as CreateRegister } from '../page/register/Create';
+import { Edit as EditRegister } from '../page/register/Edit';
 
 export default function Router() {
     return (
@@ -41,6 +40,8 @@ export default function Router() {
 
                     {/* Register */}
                     <Route path="/register" element={<IndexRegister />} />
+                    <Route path="/register/create" element={<CreateRegister />} />
+                    <Route path="/register/edit/:slug" element={<EditRegister />} />
 
                 </Route>
             </Routes>

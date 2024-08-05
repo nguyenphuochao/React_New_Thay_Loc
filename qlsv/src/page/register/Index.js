@@ -58,6 +58,20 @@ export function Index() {
         updateParam(searchParams, setSearchParams, newParams);
     }
 
+    // confirm delete
+    const handleConfirmDialog = async (id) => {
+        try {
+            // call api xóa
+            const response = await axios.delete(`http://api_qlsvk99.com/api/v1/registers/${id}`);
+            toast.success(response.data);
+            getRegisters();
+            setPage(1);
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message);
+        }
+    }
+
     // hàm này chỉ chạy lần đầu tiên khi vào web
     useEffect(() => {
         getRegisters();
@@ -78,7 +92,7 @@ export function Index() {
 
                 <Search handleSearch={handleSearch} search={search} />
 
-                {!loaded ? <Loading /> : <RegisterList items={items} />}
+                {!loaded ? <Loading /> : <RegisterList items={items} handleConfirmDialog={handleConfirmDialog} />}
 
                 <div>
                     <span>Số lượng: {toltalItem}</span>

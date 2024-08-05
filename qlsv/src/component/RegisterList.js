@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/esm/Button';
+import ConfirmDialog from './ConfirmDialog';
+import slugify from 'react-slugify';
 
-export default function RegisterList({ items }) {
+export default function RegisterList({ items, handleConfirmDialog }) {
+
+    const [currentId, setCurrentId] = useState(null);
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleCloseDialog = () => {
+        setShowModal(false);
+    }
+
     return (
         <>
             <table className="table table-hover">
@@ -27,16 +40,21 @@ export default function RegisterList({ items }) {
                             <td>{item.subject_name}</td>
                             <td>{item.score}</td>
                             <td>
-                                <a href="edit.html">Cập nhật điểm</a>
+                                <Link to={`/register/edit/${slugify(item.student_name)}-${slugify(item.subject_name)}-${item.id}.html`} className='btn btn-warning'>Cập nhật điểm</Link>
                             </td>
                             <td>
-                                <a onclick="return confirm('Bạn muốn xóa đăng ký này phải không?')" href="list.html">Xóa</a>
+                                <Button onClick={() => { setCurrentId(item.id); setShowModal(true)} } className="btn btn-danger">Xóa</Button>
                             </td>
                         </tr>
                     )}
 
                 </tbody>
             </table>
+            <ConfirmDialog
+                showModal={showModal}
+                handleCloseDialog={handleCloseDialog}
+                handleConfirmDialog={handleConfirmDialog}
+                currentId={currentId} />
         </>
     )
 }
