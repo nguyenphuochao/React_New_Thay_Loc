@@ -1,24 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-
-// redux
-import { legacy_createStore as createStore } from 'redux';
 import { Provider } from 'react-redux';
-import AuthReducer from './reducer/AuthReducer';
+
+import { legacy_createStore as createStore } from 'redux';
+import bankReducer from './reducer/bankReducer';
 
 // create store
-const store = createStore(AuthReducer)
+const store = createStore(bankReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </BrowserRouter>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

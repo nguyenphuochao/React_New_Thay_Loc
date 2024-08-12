@@ -21,7 +21,7 @@ class Router
             // check access token
             //turn on token
             // true && ... (bật lên sau)
-            if (false && !in_array($this->match['name'], ['login'])) {
+            if (true && !in_array($this->match['name'], ['login'])) {
                 try {
                     $headers = apache_request_headers(); // hoặc getallheaders()
                     if (isset($headers['Authorization'])) {

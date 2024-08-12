@@ -1,0 +1,5 @@
+4 bước:
+1. Phải tạo store
+2. Phải tạo reducer
+3. Phải tạo dispatch
+4. Phải subcriber

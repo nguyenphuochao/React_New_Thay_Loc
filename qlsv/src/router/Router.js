@@ -18,6 +18,7 @@ import { Edit as EditSubject } from '../page/subject/Edit';
 import { Index as IndexRegister } from '../page/register/Index';
 import { Create as CreateRegister } from '../page/register/Create';
 import { Edit as EditRegister } from '../page/register/Edit';
+import Login from '../page/auth/Login';
 
 export default function Router() {
     return (
@@ -42,6 +43,9 @@ export default function Router() {
                     <Route path="/register" element={<IndexRegister />} />
                     <Route path="/register/create" element={<CreateRegister />} />
                     <Route path="/register/edit/:slug" element={<EditRegister />} />
+
+                    {/* Login */}
+                    <Route path="/auth/login" element={<Login />} />
 
                 </Route>
             </Routes>
