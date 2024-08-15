@@ -1,3 +1,4 @@
+import axios from "axios";
 
 // newParams là object
 export const updateParam = (searchParams, setSearchParams, newParams) => {
@@ -18,3 +19,16 @@ export const updateParam = (searchParams, setSearchParams, newParams) => {
     // cập nhật param trên thanh địa chỉ
     setSearchParams(params);
 }
+
+// xác thực token
+export const axiosAuthInstance = () => axios.create({
+    baseURL: 'http://api_qlsvk99.com/api/v1',
+    headers: {
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiTmd1eVx1MWVjNW4gSFx1MWVlZnUgTFx1MWVkOWMiLCJlbWFpbCI6Im5ndXllbmh1dWxvY2xhMjAwNkBnbWFpbC5jb20iLCJpZCI6IjEifQ.wbnPyx2ya4r3JubDJeWaEHPPlVxQDZIr0cpOUXjSbdQ`
+    }
+});
+
+export const axiosNonAuthInstance = () => axios.create({
+    baseURL: 'http://api_qlsvk99.com/api/v1',
+});
+

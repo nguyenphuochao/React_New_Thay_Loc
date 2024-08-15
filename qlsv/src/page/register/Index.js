@@ -4,10 +4,9 @@ import { NavLink, useSearchParams } from 'react-router-dom'
 import Search from '../../component/Search'
 import Loading from '../../component/Loading'
 import { Helmet } from 'react-helmet'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import Pagination from '../../component/Pagination'
-import { updateParam } from '../../helper/util'
+import { axiosAuthInstance, updateParam } from '../../helper/util'
 
 
 export function Index() {
@@ -30,7 +29,7 @@ export function Index() {
     const getRegisters = async () => {
         try {
             // call api /api/v1/registers
-            const response = await axios.get(`http://api_qlsvk99.com/api/v1/registers?page=${page}&search=${search}`);
+            const response = await axiosAuthInstance().get(`/registers?page=${page}&search=${search}`);
             setItems(response.data.items);
             setTotalItem(response.data.totalItem);
             setPagination(response.data.pagination);
@@ -62,7 +61,7 @@ export function Index() {
     const handleConfirmDialog = async (id) => {
         try {
             // call api xóa
-            const response = await axios.delete(`http://api_qlsvk99.com/api/v1/registers/${id}`);
+            const response = await axiosAuthInstance().delete(`/registers/${id}`);
             toast.success(response.data);
             getRegisters();
             setPage(1);

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import EditStudentForm from '../../component/EditStudentForm';
 import Loading from '../../component/Loading';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import { axiosAuthInstance } from '../../helper/util';
 
 export default function Edit() {
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function Edit() {
     const getStudent = async () => {
         try {
             // call API detail
-            const response = await axios.get(`http://api_qlsvk99.com/api/v1/students/${id}`);
+            const response = await axiosAuthInstance().get(`/students/${id}`);
             setStudent(response.data);
             setLoaded(true);
         } catch (error) {
@@ -35,7 +35,7 @@ export default function Edit() {
         // console.log(values);
         // call API update
         try {
-            const response = await axios.put(`http://api_qlsvk99.com/api/v1/students/${id}`, JSON.stringify(values));
+            const response = await axiosAuthInstance().put(`/students/${id}`, JSON.stringify(values));
             const name = response.data.name;
             toast.success(`Cập nhật sinh viên ${name} thành công`);
             navigate('/');

@@ -1,8 +1,9 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { axiosAuthInstance } from '../../helper/util';
 
 export default function Detail() {
     // lấy ra slug từ url params
@@ -18,7 +19,7 @@ export default function Detail() {
     const getStudent = async () => {
         try {
             // call API lấy dữ liệu từ server về
-            const response = await axios.get(`http://api_qlsvk99.com/api/v1/students/${id}`);
+            const response = await axiosAuthInstance().get(`/students/${id}`);
             setStudent(response.data);
         } catch (error) {
             toast.error(error.message);

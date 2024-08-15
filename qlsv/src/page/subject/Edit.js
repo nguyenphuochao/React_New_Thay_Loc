@@ -1,10 +1,11 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import EditSubjectForm from '../../component/EditSubjectForm';
 import Loading from '../../component/Loading';
+import { axiosAuthInstance } from '../../helper/util';
 
 export function Edit() {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ export function Edit() {
     const getSubject = async () => {
         // call API get subject
         try {
-            const response = await axios.get(`http://api_qlsvk99.com/api/v1/subjects/${id}`);
+            const response = await axiosAuthInstance().get(`/subjects/${id}`);
             setSubject(response.data);
             setLoaded(true);
         } catch (error) {
@@ -36,7 +37,7 @@ export function Edit() {
     const handleUpdate = async (values) => {
         // call API update
         try {
-            const response = await axios.put(`http://api_qlsvk99.com/api/v1/subjects/${id}`, JSON.stringify(values));
+            const response = await axiosAuthInstance().put(`/subjects/${id}`, JSON.stringify(values));
             const name = response.data.name;
             toast.success(`Cập nhật môn học ${name} thành công`);
             navigate('/subject');

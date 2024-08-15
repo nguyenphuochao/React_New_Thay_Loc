@@ -19,6 +19,7 @@ import { Index as IndexRegister } from '../page/register/Index';
 import { Create as CreateRegister } from '../page/register/Create';
 import { Edit as EditRegister } from '../page/register/Edit';
 import Login from '../page/auth/Login';
+import ProtectedRouter from './ProtectedRouter';
 
 export default function Router() {
     return (
@@ -27,22 +28,22 @@ export default function Router() {
                 <Route path="/" element={<Layout />} >
 
                     {/* Student */}
-                    <Route path="" element={<Index />} />
-                    <Route path="/create" element={<Create />} />
-                    <Route path="/student/:slug" element={<Detail />} />
-                    <Route path="/student/edit/:slug" element={<Edit />} />
+                    <Route path="" element={<ProtectedRouter><Index /></ProtectedRouter>} />
+                    <Route path="/create" element={<ProtectedRouter><Create /></ProtectedRouter>} />
+                    <Route path="/student/:slug" element={<ProtectedRouter><Detail /></ProtectedRouter>} />
+                    <Route path="/student/edit/:slug" element={<ProtectedRouter><Edit /></ProtectedRouter>} />
 
                     {/* Subject */}
-                    <Route path="/subject" element={<IndexSubject />} />
-                    <Route path="/subject/create" element={<CreateSubject />} />
-                    <Route path="/subject/:slug" element={<DetailSubject />} />
-                    <Route path="/subject/edit/:slug" element={<EditSubject />} />
+                    <Route path="/subject" element={<ProtectedRouter><IndexSubject /></ProtectedRouter>} />
+                    <Route path="/subject/create" element={<ProtectedRouter><CreateSubject /></ProtectedRouter>} />
+                    <Route path="/subject/:slug" element={<ProtectedRouter><DetailSubject /></ProtectedRouter>} />
+                    <Route path="/subject/edit/:slug" element={<ProtectedRouter><EditSubject /></ProtectedRouter>} />
 
 
                     {/* Register */}
-                    <Route path="/register" element={<IndexRegister />} />
-                    <Route path="/register/create" element={<CreateRegister />} />
-                    <Route path="/register/edit/:slug" element={<EditRegister />} />
+                    <Route path="/register" element={<ProtectedRouter><IndexRegister /></ProtectedRouter>} />
+                    <Route path="/register/create" element={<ProtectedRouter><CreateRegister /></ProtectedRouter>} />
+                    <Route path="/register/edit/:slug" element={<ProtectedRouter><EditRegister /></ProtectedRouter>} />
 
                     {/* Login */}
                     <Route path="/auth/login" element={<Login />} />

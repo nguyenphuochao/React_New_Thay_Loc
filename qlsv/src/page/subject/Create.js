@@ -2,9 +2,9 @@ import { useFormik } from 'formik';
 import React from 'react'
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
+import { axiosAuthInstance } from '../../helper/util';
 
 export function Create() {
     const navigate = useNavigate();
@@ -29,7 +29,7 @@ export function Create() {
             try {
                 console.log(values)
                 // JSON.stringify là hàm chuyển object thành chuỗi dạng json
-                const response = await axios.post('http://api_qlsvk99.com/api/v1/subjects', JSON.stringify(values));
+                const response = await axiosAuthInstance().post('/subjects', JSON.stringify(values));
                 const name = response.data.name;
                 toast.success(`Thêm môn học ${name} thành công`);
                 navigate('/subject');

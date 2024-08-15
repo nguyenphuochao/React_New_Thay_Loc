@@ -2,9 +2,9 @@ import React from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { axiosNonAuthInstance } from '../../helper/util';
 
 export default function Login() {
 
@@ -31,8 +31,7 @@ export default function Login() {
         // Khi dữ liệu hợp lệ sẽ chạy code onSubmit
         onSubmit: async values => {
             try {
-                const response = await axios.post('http://api_qlsvk99.com/api/v1/login',JSON.stringify(values));
-                // console.log(response.data);
+                const response = await axiosNonAuthInstance().post('/login',JSON.stringify(values));
                 const action = {
                     type: 'LOGIN_SUCCESS', // thuộc tính type là phải có (qui định của redux)
                     // data gủi đi, người ta hay dùng payload

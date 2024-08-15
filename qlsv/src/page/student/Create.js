@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { NavLink, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { axiosAuthInstance } from '../../helper/util';
 function Create() {
     const navigate = useNavigate();
     const formik = useFormik({
@@ -32,7 +32,7 @@ function Create() {
             try {
                 console.log(values)
                 // JSON.stringify là hàm chuyển object thành chuỗi dạng json
-                const response = await axios.post('http://api_qlsvk99.com/api/v1/students', JSON.stringify(values));
+                const response = await axiosAuthInstance().post('/students', JSON.stringify(values));
                 const name = response.data.name;
                 toast.success(`Thêm sinh viên ${name} thành công`);
                 navigate('/');

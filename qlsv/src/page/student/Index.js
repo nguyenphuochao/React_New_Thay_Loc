@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
 import StudentList from '../../component/StudentList';
 import Loading from '../../component/Loading';
 import { toast } from 'react-toastify';
@@ -7,7 +6,7 @@ import { NavLink, useSearchParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import Pagination from '../../component/Pagination';
 import Search from '../../component/Search';
-import { updateParam } from '../../helper/util';
+import { axiosAuthInstance, updateParam } from '../../helper/util';
 function Index() {
 
     // Trạng thái lưu dữ liệu  danh sách sinh viên từ server trả về
@@ -61,7 +60,8 @@ function Index() {
     const getStudents = async () => {
         // call api lấy dữ liệu về, sau khi dữ liệu lấy bỏ vào biến items
         try {
-            const response = await axios.get(`http://api_qlsvk99.com/api/v1/students?page=${page}&search=${search}`);
+            // const response = await axiosAuthInstance().get(`/students?page=${page}&search=${search}`);
+            const response = await axiosAuthInstance().get(`/students?page=${page}&search=${search}`);
             console.log(response);
             setItems(response.data.items);
             setTotalItem(response.data.totalItem);
@@ -78,7 +78,7 @@ function Index() {
     const handleConfirmDialog = async (currentId) => {
         // call API xóa sinh viên
         try {
-            const response = await axios.delete(`http://api_qlsvk99.com/api/v1/students/${currentId}`);
+            const response = await axiosAuthInstance().delete(`/students/${currentId}`);
             toast.success(response.data);
             getStudents();
             setPage(1); // reset page thành 1

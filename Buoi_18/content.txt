@@ -1,0 +1,2 @@
+- Xác thực đăng nhập sử dụng token
+- Dùng localStorege để lưu thông tin đăng nhập

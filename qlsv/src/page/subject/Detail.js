@@ -1,8 +1,9 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { axiosAuthInstance } from '../../helper/util';
 
 export function Detail() {
 
@@ -18,7 +19,7 @@ export function Detail() {
     const getSubject = async () => {
         // call API get subject
         try {
-            const response = await axios.get(`http://api_qlsvk99.com/api/v1/subjects/${id}`);
+            const response = await axiosAuthInstance().get(`/subjects/${id}`);
             setSubject(response.data);
         } catch (error) {
             console.log(error);

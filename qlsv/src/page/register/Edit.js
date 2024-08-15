@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import EditRegisterForm from '../../component/EditRegisterForm'
 import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loading from '../../component/Loading';
+import { axiosAuthInstance } from '../../helper/util';
 
 export function Edit() {
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ export function Edit() {
     const getRegister = async () => {
         // call API
         try {
-            const response = await axios.get(`http://api_qlsvk99.com/api/v1/registers/${id}`);
+            const response = await axiosAuthInstance().get(`/registers/${id}`);
             setRegister(response.data);
             setLoaded(true);
         } catch (error) {
@@ -35,7 +35,7 @@ export function Edit() {
     const handleUpdate = async (values) => {
         // call API
         try {
-            const response = await axios.put(`http://api_qlsvk99.com/api/v1/registers/${id}`, JSON.stringify(values));
+            const response = await axiosAuthInstance().put(`/registers/${id}`, JSON.stringify(values));
             const student_name = response.data.student_name;
             const subject_name = response.data.subject_name;
             const score = response.data.score;

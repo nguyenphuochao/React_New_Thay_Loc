@@ -1,10 +1,11 @@
-import axios from 'axios';
+
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
+import { axiosAuthInstance } from '../../helper/util';
 
 export function Create() {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ export function Create() {
     const getAllStudent = async () => {
         // call API Students
         try {
-            const response = await axios.get('http://api_qlsvk99.com/api/v1/students?list=all');
+            const response = await axiosAuthInstance().get('/students?list=all');
             setStudentOptions(response.data.items);
         } catch (error) {
             toast.error(error.message);
@@ -25,7 +26,7 @@ export function Create() {
     const getAllSubject = async () => {
         // call API Subjects
         try {
-            const response = await axios.get('http://api_qlsvk99.com/api/v1/subjects?list=all');
+            const response = await axiosAuthInstance().get('/subjects?list=all');
             setSubjectOptions(response.data.items);
         } catch (error) {
             toast.error(error.message);
@@ -60,7 +61,7 @@ export function Create() {
             try {
                 // console.log(values)
                 // JSON.stringify là hàm chuyển object thành chuỗi dạng json
-                const response = await axios.post('http://api_qlsvk99.com/api/v1/registers', JSON.stringify(values));
+                const response = await axiosAuthInstance().post('/registers', JSON.stringify(values));
                 const student_name = response.data.student_name;
                 const subject_name = response.data.subject_name;
                 toast.success(`Sinh viên ${student_name} đăng kí môn học ${subject_name} thành công`);
