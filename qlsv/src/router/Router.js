@@ -20,6 +20,7 @@ import { Create as CreateRegister } from '../page/register/Create';
 import { Edit as EditRegister } from '../page/register/Edit';
 import Login from '../page/auth/Login';
 import ProtectedRouter from './ProtectedRouter';
+import LoginRouter from './LoginRouter';
 
 export default function Router() {
     return (
@@ -46,7 +47,7 @@ export default function Router() {
                     <Route path="/register/edit/:slug" element={<ProtectedRouter><EditRegister /></ProtectedRouter>} />
 
                     {/* Login */}
-                    <Route path="/auth/login" element={<Login />} />
+                    <Route path="/auth/login" element={<LoginRouter><Login /></LoginRouter>} />
 
                 </Route>
             </Routes>

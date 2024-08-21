@@ -1,0 +1,2 @@
+- Xây dựng project godashop
+- Dựng giao diện trang chủ

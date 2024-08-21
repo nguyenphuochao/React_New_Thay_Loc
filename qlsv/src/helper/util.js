@@ -24,11 +24,22 @@ export const updateParam = (searchParams, setSearchParams, newParams) => {
 export const axiosAuthInstance = () => axios.create({
     baseURL: 'http://api_qlsvk99.com/api/v1',
     headers: {
-        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiTmd1eVx1MWVjNW4gSFx1MWVlZnUgTFx1MWVkOWMiLCJlbWFpbCI6Im5ndXllbmh1dWxvY2xhMjAwNkBnbWFpbC5jb20iLCJpZCI6IjEifQ.wbnPyx2ya4r3JubDJeWaEHPPlVxQDZIr0cpOUXjSbdQ`
+        Authorization: `Bearer ${getAuthInfo().access_token}`
     }
 });
 
 export const axiosNonAuthInstance = () => axios.create({
     baseURL: 'http://api_qlsvk99.com/api/v1',
 });
+
+export const getAuthInfo = () => {
+    const authInfo = localStorage.getItem('authInfo');
+    let initialState;
+    if (!authInfo) {
+        initialState = { isLogin: false, access_token: null, loggedUser: null };
+    } else {
+        initialState = JSON.parse(authInfo); // chuyển từ string sang object
+    }
+    return initialState;
+}
 

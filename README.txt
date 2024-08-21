@@ -7,3 +7,4 @@ Lệnh tạo các thư viện trong reactJs
 - Lệnh thông báo: yarn add react-toastify
 - Cài thư viện confirm dialog: yarn add react-bootstrap bootstrap
 https://react-bootstrap.netlify.app/docs/components/modal/
+- Tạo layout: yarn add react-router-dom
