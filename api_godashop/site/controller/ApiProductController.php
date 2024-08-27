@@ -106,9 +106,6 @@ class ApiProductController
                     'pagination' => [
                         'page' => $page,
                         'totalPage' => $totalPage,
-
-
-
                     ]
                 ];
             }
@@ -192,6 +189,7 @@ class ApiProductController
         }
         return $temps;
     }
+
     function storeComment($product_id)
     {
         $info = json_decode(file_get_contents("php://input"));

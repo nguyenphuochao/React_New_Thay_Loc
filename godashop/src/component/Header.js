@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 export default function Header() {
   return (
@@ -10,13 +11,13 @@ export default function Header() {
           {/* Top Navbar */}
           <div className="top-navbar container-fluid">
             <div className="menu-mb">
-              <a href="javascript:void(0)" className="btn-close" onclick="closeMenuMobile()">×</a>
-              <a className="active" href="index.html">Trang chủ</a>
-              <a href="san-pham.html">Sản phẩm</a>
-              <a href="chinh-sach-doi-tra.html">Chính sách đổi trả</a>
-              <a href="chinh-sach-thanh-toan.html">Chính sách thanh toán</a>
-              <a href="chinh-sach-giao-hang.html">Chính sách giao hàng</a>
-              <a href="lien-he.html">Liên hệ</a>
+              <Link href="#" className="btn-close" onclick="closeMenuMobile()">×</Link>
+              <NavLink className="active" to="/">Trang chủ</NavLink>
+              <NavLink to="san-pham.html">Sản phẩm</NavLink>
+              <NavLink to="chinh-sach-doi-tra.html">Chính sách đổi trả</NavLink>
+              <NavLink to="chinh-sach-thanh-toan.html">Chính sách thanh toán</NavLink>
+              <NavLink to="chinh-sach-giao-hang.html">Chính sách giao hàng</NavLink>
+              <NavLink to="lien-he.html">Liên hệ</NavLink>
             </div>
             <div className="row">
               <div className="hidden-lg hidden-md col-sm-2 col-xs-1">
@@ -24,20 +25,20 @@ export default function Header() {
               </div>
               <div className="col-md-6 hidden-sm hidden-xs">
                 <ul className="list-inline">
-                  <li><a href="https://www.facebook.com/HocLapTrinhWebTaiNha.ThayLoc"><i className="fab fa-facebook-f" /></a></li>
-                  <li><a href="https://twitter.com"><i className="fab fa-twitter" /></a></li>
-                  <li><a href="https://www.instagram.com"><i className="fab fa-instagram" /></a></li>
-                  <li><a href="https://www.pinterest.com/"><i className="fab fa-pinterest" /></a></li>
-                  <li><a href="https://www.youtube.com/"><i className="fab fa-youtube" /></a></li>
+                  <li><Link to="https://www.facebook.com/HocLapTrinhWebTaiNha.ThayLoc"><i className="fab fa-facebook-f" /></Link></li>
+                  <li><Link to="https://twitter.com"><i className="fab fa-twitter" /></Link></li>
+                  <li><Link to="https://www.instagram.com"><i className="fab fa-instagram" /></Link></li>
+                  <li><Link to="https://www.pinterest.com/"><i className="fab fa-pinterest" /></Link></li>
+                  <li><Link to="https://www.youtube.com/"><i className="fab fa-youtube" /></Link></li>
                 </ul>
               </div>
               <div className="col-md-6 col-sm-10 col-xs-11">
                 <ul className="list-inline pull-right top-right">
                   <li className="account-login">
-                    <a href="javascript:void(0)" className="btn-register">Đăng Ký</a>
+                    <Link to="#" className="btn-register">Đăng Ký</Link>
                   </li>
                   <li>
-                    <a href="javascript:void(0)" className="btn-login">Đăng Nhập</a>
+                    <Link to="#" className="btn-login">Đăng Nhập</Link>
                   </li>
                 </ul>
               </div>
@@ -49,10 +50,10 @@ export default function Header() {
             <div className="row">
               {/* LOGO */}
               <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 logo">
-                <a href="#"><img src="../images/goda450x170_1.jpg" className="img-responsive" /></a>
+                <Link to="#"><img src="../images/goda450x170_1.jpg" className="img-responsive" alt='' /></Link>
               </div>
               <div className="col-lg-4 col-md-4 hidden-sm hidden-xs call-action">
-                <a href="#"><img src="../images/godakeben450x170.jpg" className="img-responsive" /></a>
+                <Link to="#"><img src="../images/godakeben450x170.jpg" className="img-responsive" alt='' /></Link>
               </div>
               {/* HOTLINE AND SERCH */}
               <div className="col-lg-4 col-md-4 hotline-search">
@@ -82,18 +83,18 @@ export default function Header() {
         <nav className="navbar navbar-default desktop-menu">
           <div className="container">
             <ul className="nav navbar-nav navbar-left hidden-sm hidden-xs">
-              <li className="active">
-                <a href="index.html">Trang chủ</a>
+              <li>
+                <NavLink to='/'>Trang chủ</NavLink>
               </li>
-              <li><a href="san-pham.html">Sản phẩm </a></li>
-              <li><a href="chinh-sach-doi-tra.html">Chính sách đổi trả</a></li>
-              <li><a href="chinh-sach-thanh-toan.html">Chính sách thanh toán</a></li>
-              <li><a href="chinh-sach-giao-hang.html">Chính sách giao hàng</a></li>
-              <li><a href="lien-he.html">Liên hệ</a></li>
+              <li><NavLink to='/san-pham.html'>Sản phẩm </NavLink></li>
+              <li><NavLink to="chinh-sach-doi-tra.html">Chính sách đổi trả</NavLink></li>
+              <li><NavLink to="chinh-sach-thanh-toan.html">Chính sách thanh toán</NavLink></li>
+              <li><NavLink to="chinh-sach-giao-hang.html">Chính sách giao hàng</NavLink></li>
+              <li><NavLink to="lien-he.html">Liên hệ</NavLink></li>
             </ul>
             <span className="hidden-lg hidden-md experience">Trải nghiệm cùng sản phẩm của Goda</span>
             <ul className="nav navbar-nav navbar-right">
-              <li className="cart"><a href="javascript:void(0)" className="btn-cart-detail" title="Giỏ Hàng"><i className="fa fa-shopping-cart" /> <span className="number-total-product">6</span></a></li>
+              <li className="cart"><Link href="#" className="btn-cart-detail" title="Giỏ Hàng"><i className="fa fa-shopping-cart" /> <span className="number-total-product">6</span></Link></li>
             </ul>
           </div>
         </nav>

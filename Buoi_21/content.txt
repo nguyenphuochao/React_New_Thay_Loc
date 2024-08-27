@@ -1,0 +1,2 @@
+- Xây dựng trang chủ
+- Lấy API get data trang chủ

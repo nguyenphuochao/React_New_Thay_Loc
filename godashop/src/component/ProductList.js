@@ -6,7 +6,7 @@ export default function ProductList({ products }) {
         <>
             {
                 products.map((product, index) =>
-                    <div className="col-xs-6 col-sm-3">
+                    <div key={index} className="col-xs-6 col-sm-3">
                         <Product product={product} />
                     </div>
                 )

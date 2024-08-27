@@ -1,19 +1,28 @@
 import React from 'react'
+import numeral from 'numeral'
+import 'numeral/locales';
+import { Link } from 'react-router-dom';
+import { createLinkProduct } from '../helper/util';
+numeral.locale('vi');
 
 export default function Product({ product }) {
     return (
         <>
             <div className="product-container">
                 <div className="image">
-                    <img className="img-responsive" src="../images/beaumoreSecretWhiteningCream10g.jpg" alt="" />
+                    <img className="img-responsive" src={product.featured_image} alt={product.name} />
                 </div>
                 <div className="product-meta">
                     <h5 className="name">
-                        <a className="product-name" href="chi-tiet-san-pham.html" title="Kem làm trắng da 5 trong 1 Beaumore Secret Whitening Cream">Kem làm trắng da 5 trong 1 Beaumore Secret Whitening Cream</a>
+                        <Link className="product-name" to={createLinkProduct(product)} title={product.name}>{product.name}</Link>
                     </h5>
                     <div className="product-item-price">
-                        <span className="product-item-regular">200,000₫</span>
-                        <span className="product-item-discount">190,000₫</span>
+                        {
+                            product.price !== product.sale_price ?
+                                <span className="product-item-regular">{numeral(product.price).format('0,0')}₫</span>
+                                : null
+                        }
+                        <span className="product-item-discount">{numeral(product.sale_price).format('0,0')}₫</span>
                     </div>
                 </div>
                 <div className="button-product-action clearfix">
@@ -23,9 +32,9 @@ export default function Product({ product }) {
                         </a>
                     </div>
                     <div className="quickview icon">
-                        <a className="btn btn-outline-inverse" href="chi-tiet-san-pham.html" title="Xem nhanh">
+                        <Link className="btn btn-outline-inverse" to={createLinkProduct(product)} title="Xem nhanh">
                             Xem chi tiết <i className="fa fa-eye" />
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

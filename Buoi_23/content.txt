@@ -1,0 +1,4 @@
+- Xây dựng trang sản phẩm theo danh mục
+- Call API /products?item_per_page=10&category_id=${categoryId}
+- Xây dựng trang sản phẩm theo giá
+- Call API /products?item_per_page=10&category_id=${categoryId}&price-range=${priceRange}
