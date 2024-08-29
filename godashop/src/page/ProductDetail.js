@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CatSidebar from '../component/CatSidebar'
 import PriceSidebar from '../component/PriceSidebar'
-import { axiosNonAuthInstance } from '../helper/util';
+import { axiosNonAuthInstance, getProductId } from '../helper/util';
 import { Link, useParams } from 'react-router-dom';
 import ProductInner from '../component/ProductInner';
 import Loading from '../component/Loading';
@@ -15,8 +15,7 @@ export default function ProductDetail() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const { slug } = useParams();
-    const partSlug = slug.split('-');
-    const productId = partSlug.pop();
+    const productId = getProductId(slug);
 
     const getProduct = async () => {
         try {
@@ -43,7 +42,7 @@ export default function ProductDetail() {
                             <ol className="breadcrumb">
                                 <li><Link to="/" target="_self">Trang chủ</Link></li>
                                 <li><span>/</span></li>
-                                <li className="active"><span>{product.name}</span></li>
+                                <li className="active"><span>{product?.name}</span></li>
                             </ol>
                         </div>
                         <div className="col-xs-3 hidden-lg hidden-md">
@@ -53,7 +52,7 @@ export default function ProductDetail() {
                         <aside className="col-md-3">
                             <div className="inner-aside">
                                 {/* Category sidebar */}
-                                <CatSidebar />
+                                <CatSidebar categoryId={product?.category_id} />
                                 {/* Price range sidebar */}
                                 <PriceSidebar handlePrice={handlePrice} priceRange={priceRange} />
                             </div>

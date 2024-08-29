@@ -1,25 +1,23 @@
 import React from 'react'
 import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
-export default function ProductSlider() {
-    const images = [
-        {
-          original: "https://picsum.photos/id/1018/1000/600/",
-          thumbnail: "https://picsum.photos/id/1018/250/150/",
-        },
-        {
-          original: "https://picsum.photos/id/1015/1000/600/",
-          thumbnail: "https://picsum.photos/id/1015/250/150/",
-        },
-        {
-          original: "https://picsum.photos/id/1019/1000/600/",
-          thumbnail: "https://picsum.photos/id/1019/250/150/",
-        },
-      ];
+export default function ProductSlider({ product }) {
+  const images = [
+    {
+      original: product.featured_image,
+      thumbnail: product.featured_image,
+    },
+  ];
 
-  return (
-    <>
-        <ImageGallery items={images} />
-    </>
-  )
+  const moreImages = product.thumbnailItems.map((thumbnailItem) =>
+    ({
+      original: thumbnailItem.name,
+      thumbnail: thumbnailItem.name
+    })
+  );
+  
+  const allImages = [...images, ...moreImages];
+
+  return <ImageGallery items={allImages} showPlayButton={false} />
 }

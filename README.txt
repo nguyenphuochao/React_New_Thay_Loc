@@ -11,3 +11,7 @@ https://react-bootstrap.netlify.app/docs/components/modal/
 - Lệnh cài số tiền ngăn phần nghìn: yarn add numeral
 - Cài react-slugify: yarn add react-slugify
 - Cài thư viện hình thumbnail: yarn add react-image-gallery
+- Thư viện fomat description thẻ html: yarn add dompurify
+- Thư viên trượt slick: yarn add react-slick
+			yarn add slick-carousel
+- Thư viện rating: yarn add react-rating-stars-component

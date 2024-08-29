@@ -39,7 +39,8 @@ export default function CatSidebar({ categoryId }) {
                             categories.map((category, index) =>
                                 <li key={index}>
                                     {/* danh-muc/kem-2 */}
-                                    <NavLink to={createLinkCategory(category)} title={category.name} target="_self">{category.name}</NavLink>
+                                    <Link className={categoryId === category.id ? 'active' : ''}
+                                    to={createLinkCategory(category)} title={category.name} target="_self">{category.name}</Link>
                                 </li>
                             )
                             : <Loading />

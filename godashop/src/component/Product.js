@@ -2,7 +2,7 @@ import React from 'react'
 import numeral from 'numeral'
 import 'numeral/locales';
 import { Link } from 'react-router-dom';
-import { createLinkProduct } from '../helper/util';
+import { createLinkProduct, formatMoney } from '../helper/util';
 numeral.locale('vi');
 
 export default function Product({ product }) {
@@ -19,10 +19,10 @@ export default function Product({ product }) {
                     <div className="product-item-price">
                         {
                             product.price !== product.sale_price ?
-                                <span className="product-item-regular">{numeral(product.price).format('0,0')}₫</span>
+                                <span className="product-item-regular">{formatMoney(product.price)}₫</span>
                                 : null
                         }
-                        <span className="product-item-discount">{numeral(product.sale_price).format('0,0')}₫</span>
+                        <span className="product-item-discount">{formatMoney(product.sale_price)}₫</span>
                     </div>
                 </div>
                 <div className="button-product-action clearfix">

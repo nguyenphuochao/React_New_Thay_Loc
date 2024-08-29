@@ -1,5 +1,8 @@
 import axios from "axios";
 import slugify from "react-slugify";
+import numeral from 'numeral'
+import 'numeral/locales';
+numeral.locale('vi');
 
 export const updateParam = (searchParams, setSearchParams, newParams) => {
     let params = {}
@@ -35,10 +38,20 @@ export const axiosNonAuthInstance = () => axios.create({
 
 // Lấy ra ID của danh mục để query
 export const getCategoryId = (slug) => {
-    if(!slug) return '';
+    if (!slug) return '';
     const slugParts = slug.split('-');
     const categoryId = slugParts.pop();
     return categoryId;
+}
+
+// Lấy ra ID của sản phẩm để query
+export const getProductId = (slug) => {
+    if (!slug) return '';
+    const slugParts = slug.split('.html');
+    const leftPart = slugParts[0];
+    const parts = leftPart.split('-');
+    const productId = parts.pop();
+    return productId;
 }
 
 // Lấy đường dẫn sản phẩm theo danh mục
@@ -48,5 +61,10 @@ export const createLinkCategory = (category) => {
 
 // Dường dẫn chi tiết sản phẩm
 export const createLinkProduct = (product) => {
-    return `/san-pham/${slugify(product.name)}-${product.id}`;
+    return `/san-pham/${slugify(product.name)}-${product.id}.html`;
+}
+
+// Hàm format tiền
+export const formatMoney = (money) => {
+    return numeral(money).format('0,0');
 }

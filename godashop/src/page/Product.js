@@ -60,7 +60,7 @@ export default function Product() {
             <aside className="col-md-3">
               <div className="inner-aside">
                 {/* Category sidebar */}
-                <CatSidebar />
+                <CatSidebar categoryId={categoryId} />
                 {/* Price range sidebar */}
                 <PriceSidebar handlePrice={handlePrice} priceRange={priceRange} />
               </div>

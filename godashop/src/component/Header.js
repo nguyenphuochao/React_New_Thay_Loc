@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
 export default function Header() {
   return (
@@ -99,7 +100,7 @@ export default function Header() {
           </div>
         </nav>
       </div>
-
+      <ToastContainer />
     </>
   )
 }
