@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { axiosNonAuthInstance } from '../helper/util';
 
-export default function CommentForm() {
+export default function CommentForm({ handleSubmitComment }) {
     const formik = useFormik({
         // khởi tạo giá trị ban đầu
         initialValues: {
@@ -32,8 +32,7 @@ export default function CommentForm() {
         onSubmit: async values => {
             try {
                 // console.log(values)
-                // call API create comment
-                const response = axios axiosNonAuthInstance().get(`/`)
+                handleSubmitComment(values);
             } catch (error) {
                 toast.error(error.message);
             }
@@ -73,7 +72,9 @@ export default function CommentForm() {
                             <div className='text-danger'>{formik.errors.description}</div> : null
                     }
                 </div>
+
                 <button type="submit" className="btn btn-primary">Gửi</button>
+
             </form>
         </>
     )

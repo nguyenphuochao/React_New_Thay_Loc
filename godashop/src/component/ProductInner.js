@@ -23,8 +23,18 @@ export default function ProductInner({ product }) {
         }
     }
 
+    const handleSubmitComment = async (values) => {
+        // console.log(values);
+        // call API create comment
+        await axiosNonAuthInstance().post(`/products/${product.id}/comments`, JSON.stringify(values));
+        // load lại data getComments()
+        getComments();
+        setIsLoaded(true);
+    }
+
     useEffect(() => {
         getComments();
+        // eslint-disable-next-line 
     }, []);
 
 
@@ -79,7 +89,7 @@ export default function ProductInner({ product }) {
                                 {/* {product.description} */}
                             </div>
                             <div role="tabpanel" className="tab-pane" id="product-comment">
-                                <CommentForm />
+                                { !isLoaded ? null : <CommentForm handleSubmitComment={handleSubmitComment} /> }
                                 <div className="comment-list">
                                     {
                                         comments.map((comment, index) =>
@@ -91,7 +101,7 @@ export default function ProductInner({ product }) {
                                                     edit={false}
                                                     size={24}
                                                     activeColor="#ffd700"
-                                                    value={comment.star} />
+                                                    value={Number(comment.star)} />
                                                 <span className="by">{comment.fullname}</span>
                                                 <p>{comment.description}</p>
                                             </>
