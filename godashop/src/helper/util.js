@@ -59,7 +59,7 @@ export const createLinkCategory = (category) => {
     return `/danh-muc/${slugify(category.name)}-${category.id}`;
 }
 
-// Dường dẫn chi tiết sản phẩm
+// Đường dẫn chi tiết sản phẩm
 export const createLinkProduct = (product) => {
     return `/san-pham/${slugify(product.name)}-${product.id}.html`;
 }

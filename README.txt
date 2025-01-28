@@ -15,3 +15,4 @@ https://react-bootstrap.netlify.app/docs/components/modal/
 - Thư viên trượt slick: yarn add react-slick
 			yarn add slick-carousel
 - Thư viện rating: yarn add react-rating-stars-component
+- Thư viện react redux : yarn add react-redux redux

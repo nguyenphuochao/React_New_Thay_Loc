@@ -1,0 +1,2 @@
+- Xây dựng giao diện popup login, register, cart, forgot password
+- Chức năng login

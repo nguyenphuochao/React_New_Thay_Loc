@@ -3,8 +3,6 @@ import ReactStars from "react-rating-stars-component";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import axios from 'axios';
-import { axiosNonAuthInstance } from '../helper/util';
 
 export default function CommentForm({ handleSubmitComment }) {
     const formik = useFormik({
@@ -25,7 +23,6 @@ export default function CommentForm({ handleSubmitComment }) {
                 .required('Vui lòng nhập email'),
             description: Yup.string()
                 .required('Vui lòng nhập nội dung')
-
         }),
 
         // Khi dữ liệu hợp lệ sẽ chạy code onSubmit

@@ -1,2 +1,3 @@
 - Xây dựng chức năng create comment
 - Xây dựng chức năng đăng nhập
+- Sử dụng reducer
