@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from "../const/AuthConstant";
+import { LOGIN, LOGOUT, UPDATE_LOGGED_USER } from "../const/AuthConstant";
 
 const authInfo = localStorage.getItem('authInfo');
 let initialState;
@@ -44,6 +44,17 @@ const AuthReducer = (state = initialState, action) => {
                 return new_state;
             }
 
+        case UPDATE_LOGGED_USER:
+            {
+                const new_state = {
+                    ...state,
+                    loggedUser: action.payload.loggedUser
+                };
+
+                // hủy thông tin trong localStorage
+                localStorage.setItem('authInfo', JSON.stringify(new_state));
+                return new_state;
+            }
 
         default:
             return state; // mặc định là state

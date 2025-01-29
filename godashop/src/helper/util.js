@@ -27,9 +27,23 @@ export const updateParam = (searchParams, setSearchParams, newParams) => {
 export const axiosAuthInstance = () => axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
-        Authorization: `Bearer ???` // token
+        Authorization: `Bearer ${getAuthInfo().access_token}` // token
     }
 });
+
+// Hàm lấy ra thông tin đã login
+export const getAuthInfo = () => {
+    const authInfo = localStorage.getItem('authInfo');
+    let initialState;
+    
+    if (!authInfo) {
+        initialState = { isLogin: false, access_token: null, loggedUser: null };
+    } else {
+        initialState = JSON.parse(authInfo); // chuyển từ string sang object
+    }
+
+    return initialState;
+}
 
 // không xác thực
 export const axiosNonAuthInstance = () => axios.create({
@@ -47,11 +61,21 @@ export const getCategoryId = (slug) => {
 // Lấy ra ID của sản phẩm để query
 export const getProductId = (slug) => {
     if (!slug) return '';
-    const slugParts = slug.split('.html');
-    const leftPart = slugParts[0];
-    const parts = leftPart.split('-');
-    const productId = parts.pop();
+    const slugParts = slug.split('.html'); // cắt chuỗi ở chỗ cuối cùng
+    const leftPart = slugParts[0]; // id nằm ở phần tử cuối
+    const parts = leftPart.split('-'); // cắt ở đầu -
+    const productId = parts.pop(); // id là phần nằm PT cuối danh sách
     return productId;
+}
+
+// Lấy ID của order
+export const getOrderId = (slug) => {
+    if (!slug) return '';
+    const slugParts = slug.split('.html'); // cắt chuỗi ở chỗ cuối cùng
+    const leftPart = slugParts[0]; // id nằm ở phần tử cuối
+    const parts = leftPart.split('-'); // cắt ở đầu -
+    const orderId = parts.pop(); // id là phần nằm PT cuối danh sách
+    return orderId;
 }
 
 // Lấy đường dẫn sản phẩm theo danh mục
@@ -62,6 +86,11 @@ export const createLinkCategory = (category) => {
 // Đường dẫn chi tiết sản phẩm
 export const createLinkProduct = (product) => {
     return `/san-pham/${slugify(product.name)}-${product.id}.html`;
+}
+
+// Đường dẫn lấy chi tiết đơn hàng
+export const createLinkOrderDetail = (order) => {
+    return `/don-hang/chi-tiet-don-hang-${slugify(order.id)}.html`;
 }
 
 // Hàm format tiền

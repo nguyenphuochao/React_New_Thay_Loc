@@ -2,10 +2,36 @@ import React from 'react'
 import numeral from 'numeral'
 import 'numeral/locales';
 import { Link } from 'react-router-dom';
-import { createLinkProduct, formatMoney } from '../helper/util';
+import { axiosNonAuthInstance, createLinkProduct, formatMoney } from '../helper/util';
+import { toast } from 'react-toastify';
+import { ADD_TO_CART } from '../const/CartConstant';
+import { useDispatch } from 'react-redux';
 numeral.locale('vi');
 
 export default function Product({ product }) {
+    const dispatch = useDispatch();
+
+    const handleAddProductToCart = async (id) => {
+        try {
+            const response = await axiosNonAuthInstance().get(`/products/${id}`);
+            const product = response.data;
+            const item = {
+                id: product.id,
+                name: product.name,
+                featured_image: product.featured_image,
+                sale_price: product.sale_price,
+                qty: 1
+            };
+
+            // tạo action để dispatch lên store
+            const action = { type: ADD_TO_CART, payload: item }
+            dispatch(action);
+
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     return (
         <>
             <div className="product-container">
@@ -27,9 +53,9 @@ export default function Product({ product }) {
                 </div>
                 <div className="button-product-action clearfix">
                     <div className="cart icon">
-                        <a className="btn btn-outline-inverse buy" product-id={2} href="!" title="Thêm vào giỏ">
+                        <Link className="btn btn-outline-inverse buy" onClick={() => handleAddProductToCart(product.id)} to="#" title="Thêm vào giỏ">
                             Thêm vào giỏ <i className="fa fa-shopping-cart" />
-                        </a>
+                        </Link>
                     </div>
                     <div className="quickview icon">
                         <Link className="btn btn-outline-inverse" to={createLinkProduct(product)} title="Xem nhanh">

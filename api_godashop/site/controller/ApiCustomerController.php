@@ -33,6 +33,7 @@ class ApiCustomerController
     //Hiển thị thông tin tài khoản
     function show($id)
     {
+        // echo 1;die;
         global $globalCustomer;
         if ($globalCustomer->id != $id) {
             echo "{}";

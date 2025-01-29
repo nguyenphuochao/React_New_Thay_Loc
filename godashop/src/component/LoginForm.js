@@ -86,7 +86,7 @@ export default function LoginForm() {
                                 <Link className="btn btn-primary facebook-login" to="#"><i className="fab fa-facebook-f" /> Đăng nhập bằng Facebook</Link>
                             </div>
                         </div>
-                        <form action="#" method="POST" onSubmit={formik.handleSubmit}>
+                        <form action="#" method="POST" onSubmit={formik.handleSubmit} >
                             <div className="modal-body">
 
                                 <div className="form-group">

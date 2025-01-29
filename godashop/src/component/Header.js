@@ -27,8 +27,9 @@ export default function Header() {
     dispatch(action);
   }
 
-  const handleLogout = () => {
-    const action = { type : LOGOUT };
+  const handleLogout = (e) => {
+    e.preventDefault(); // ngăn chặn chạy href của thẻ a
+    const action = { type: LOGOUT };
     dispatch(action);
     // điều hướng về trang chủ(ko tải lại toàn bộ trang)
     navigate('/');
@@ -37,6 +38,8 @@ export default function Header() {
   // đăng kí vs store về thay đổi trạng thái đăng nhập/đăng xuất
   const isLogin = useSelector(state => state.AuthReducer.isLogin);
   const loggedUser = useSelector(state => state.AuthReducer.loggedUser);
+  const cartItems = useSelector(state => state.CartReducer.cartItems);
+  const totalItem = cartItems.reduce((total, item) => total + item.qty, 0);
 
   return (
     <>
@@ -86,11 +89,11 @@ export default function Header() {
                       <li>
                         <Link to="#" class="btn-account dropdown-toggle" data-toggle="dropdown" id="dropdownMenu">{loggedUser.name}</Link>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
-                          <li><a href="thong-tin-tai-khoan.html">Thông tin tài khoản</a></li>
-                          <li><a href="dia-chi-giao-hang-mac-dinh.html">Địa chỉ giao hàng</a></li>
-                          <li><a href="don-hang-cua-toi.html">Đơn hàng của tôi</a></li>
+                          <li><Link to="thong-tin-tai-khoan.html">Thông tin tài khoản</Link></li>
+                          <li><Link to="dia-chi-giao-hang-mac-dinh.html">Địa chỉ giao hàng</Link></li>
+                          <li><Link to="don-hang-cua-toi.html">Đơn hàng của tôi</Link></li>
                           <li role="separator" class="divider"></li>
-                          <li><Link onClick={() => handleLogout()} to="#">Thoát</Link></li>
+                          <li><Link onClick={(e) => handleLogout(e)} to="#">Thoát</Link></li>
                         </ul>
                       </li>
                       :
@@ -153,7 +156,7 @@ export default function Header() {
             </ul>
             <span className="hidden-lg hidden-md experience">Trải nghiệm cùng sản phẩm của Goda</span>
             <ul className="nav navbar-nav navbar-right">
-              <li className="cart"><Link onClick={() => handlePopupCart()} href="#" className="btn-cart-detail" title="Giỏ Hàng"><i className="fa fa-shopping-cart" /> <span className="number-total-product">6</span></Link></li>
+              <li className="cart"><Link onClick={() => handlePopupCart()} href="#" className="btn-cart-detail" title="Giỏ Hàng"><i className="fa fa-shopping-cart" /> <span className="number-total-product">{ totalItem }</span></Link></li>
             </ul>
           </div>
         </nav>

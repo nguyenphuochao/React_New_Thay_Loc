@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reduce in JS</title>
+</head>
+
+<body>
+    <script>
+
+        // Ví dụ cho arr
+        const numbers = [3, 5, 9];
+        const sum = numbers.reduce((total, num) => total + num);
+        console.log(sum);
+
+        // ví dụ cho object
+        const order_items = [
+            {
+                total_price : 3
+            },
+            {
+                total_price : 5
+            }
+        ];
+        const tong = order_items.reduce((total, order_item) => total + Number(order_item.total_price), 0);
+        console.log(tong);
+
+    </script>
+</body>
+
+</html>
