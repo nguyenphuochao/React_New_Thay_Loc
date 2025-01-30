@@ -5,9 +5,13 @@ import DOMPurify from 'dompurify';
 import RelatedProductSlider from './RelatedProductSlider';
 import ReactStars from "react-rating-stars-component";
 import CommentForm from './CommentForm';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_CART } from '../const/CartConstant';
+import { toast } from 'react-toastify';
 
 export default function ProductInner({ product }) {
-
+    const dispatch = useDispatch();
     const [comments, setComments] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -37,6 +41,32 @@ export default function ProductInner({ product }) {
         // eslint-disable-next-line 
     }, []);
 
+    // thêm sản phẩm vào giỏ hàng
+    const handleAddProductToCartInner = async (id, e) => {
+        const addToCartLink = e.target;
+        const previousInput = addToCartLink.previousElementSibling;
+        const qty = previousInput.value;
+
+        try {
+            const response = await axiosNonAuthInstance().get(`/products/${id}`);
+            const product = response.data;
+            const item = {
+                id: product.id,
+                name: product.name,
+                featured_image: product.featured_image,
+                sale_price: product.sale_price,
+                qty: qty
+            };
+
+            // tạo action để dispatch lên store
+            const action = { type: ADD_TO_CART, payload: item }
+            dispatch(action);
+
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
 
     return (
         <>
@@ -50,6 +80,7 @@ export default function ProductInner({ product }) {
                     <div className="brand">
                         <span>Nhãn hàng: </span> <span>REDWIN</span>
                     </div>
+
                     <div className="product-status">
                         <span>Trạng thái: </span>
                         {
@@ -58,6 +89,7 @@ export default function ProductInner({ product }) {
                                 <span className="label-warning">Hết hàng</span>
                         }
                     </div>
+
                     <div className="product-item-price">
                         <span>Giá: </span>
                         {
@@ -67,6 +99,14 @@ export default function ProductInner({ product }) {
                         }
                         <span className="product-item-discount">{formatMoney(product.sale_price)}₫</span>
                     </div>
+
+                    <div classname="input-group">
+                        <input type="number" className="product-quantity form-control" defaultValue={1} min={1} />
+                        <Link to="#" onClick={(e) => handleAddProductToCartInner(product.id, e)} className="buy-in-detail btn btn-success cart-add-button">
+                            <i className="fa fa-shopping-cart" />Thêm vào giỏ hàng
+                        </Link>
+                    </div>
+
                 </div>
             </div>
             {/* product-description */}
@@ -89,7 +129,7 @@ export default function ProductInner({ product }) {
                                 {/* {product.description} */}
                             </div>
                             <div role="tabpanel" className="tab-pane" id="product-comment">
-                                { !isLoaded ? null : <CommentForm handleSubmitComment={handleSubmitComment} /> }
+                                {!isLoaded ? null : <CommentForm handleSubmitComment={handleSubmitComment} />}
                                 <div className="comment-list">
                                     {
                                         comments.map((comment, index) =>

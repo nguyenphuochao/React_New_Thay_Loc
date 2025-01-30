@@ -1,4 +1,5 @@
 import { ADD_TO_CART, EMPTY_QTY, REMOVE_FROM_CART, UPDATE_QTY } from "../const/CartConstant";
+import { pre_add_to_cart, pre_remove_from_cart, pre_update_cart } from "../helper/util";
 
 const cart = localStorage.getItem("cart");
 
@@ -13,18 +14,34 @@ if (!cart) {
 const CartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TO_CART:
-            const newCart = {
-                cartItems : [...state.cartItems, action.payload]
-            };
+            {
+                const newCart = {
+                    cartItems: pre_add_to_cart(state.cartItems, action.payload)
+                };
 
-            localStorage.setItem("cart", JSON.stringify(newCart));
-            return newCart;
+                localStorage.setItem("cart", JSON.stringify(newCart));
+                return newCart;
+            }
 
         case REMOVE_FROM_CART:
-            return;
+            {
+                const newCart = {
+                    cartItems: pre_remove_from_cart(state.cartItems, action.payload.id)
+                };
+
+                localStorage.setItem("cart", JSON.stringify(newCart));
+                return newCart;
+            }
 
         case UPDATE_QTY:
-            return;
+            {
+                const newCart = {
+                    cartItems: pre_update_cart(state.cartItems, action.payload)
+                };
+
+                localStorage.setItem("cart", JSON.stringify(newCart));
+                return newCart;
+            }
 
         case EMPTY_QTY:
             return;

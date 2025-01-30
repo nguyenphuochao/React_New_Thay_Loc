@@ -35,7 +35,7 @@ export const axiosAuthInstance = () => axios.create({
 export const getAuthInfo = () => {
     const authInfo = localStorage.getItem('authInfo');
     let initialState;
-    
+
     if (!authInfo) {
         initialState = { isLogin: false, access_token: null, loggedUser: null };
     } else {
@@ -96,4 +96,48 @@ export const createLinkOrderDetail = (order) => {
 // Hàm format tiền
 export const formatMoney = (money) => {
     return numeral(money).format('0,0');
+}
+
+// viết hàm thêm 1 sp vào giỏ hàng
+export const pre_add_to_cart = (arr, input) => {
+    // kiểm tra xem có bị trùng không, và trả về chỉ số của pt bị trùng
+    // nếu không trùng trả về giá trị -1
+    const newArray = JSON.parse(JSON.stringify(arr));
+
+    const index = newArray.findIndex((item) => item.id === input.id);
+    if (index !== -1) {
+        newArray[index].qty += Number(input.qty);
+    } else {
+        newArray.push(input);
+    }
+
+    return newArray;
+}
+
+// Xóa sp khỏi giỏ hàng
+export const pre_remove_from_cart = (arr, id) => {
+    // kiểm tra xem có bị trùng không, và trả về chỉ số của pt bị trùng
+    // nếu không trùng trả về giá trị -1
+    const newArray = JSON.parse(JSON.stringify(arr));
+
+    const index = newArray.findIndex((item) => item.id === id);
+    if (index !== -1) {
+        newArray.splice(index, 1);
+    }
+
+    return newArray;
+}
+
+// cập nhật số lượng giỏ hàng
+export const pre_update_cart = (arr, input) => {
+    // kiểm tra xem có bị trùng không, và trả về chỉ số của pt bị trùng
+    // nếu không trùng trả về giá trị -1
+    const newArray = JSON.parse(JSON.stringify(arr));
+
+    const index = newArray.findIndex((item) => item.id === input.id);
+    if (index !== -1) {
+        newArray[index].qty = input.qty;
+    }
+
+    return newArray;
 }

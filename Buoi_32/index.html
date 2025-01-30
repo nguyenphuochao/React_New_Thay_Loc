@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra index</title>
+</head>
+
+<body>
+    <script>
+
+        const arr = [
+            { id: 5, name: "Product1", qty: 2 },
+            { id: 6, name: "Product2", qty: 2 }
+        ];
+
+        input1 = { id: 5, name: "Product1", qty: 1 };
+        input2 = { id: 7, name: "Product3", qty: 1 };
+
+        // viết hàm thêm 1 sp vào giỏ hàng
+        const pre_add_to_cart = (input, arr) => {
+            // kiểm tra xem có bị trùng không, và trả về chỉ số của pt bị trùng
+            // nếu không trùng trả về giá trị -1
+            const index = arr.findIndex((item) => item.id === input.id);
+            if (index !== -1) {
+                arr[index].qty++;
+            } else {
+                arr.push(input);
+            }
+
+            return arr;
+        }
+
+        // gọi hàm
+        console.log(pre_add_to_cart(input2, arr));
+
+    </script>
+</body>
+
+</html>

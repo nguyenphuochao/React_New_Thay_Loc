@@ -2,18 +2,34 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { POPUP_CLOSE } from '../const/PopupConstant';
 import { Link } from 'react-router-dom';
+import { formatMoney } from '../helper/util';
+import { REMOVE_FROM_CART, UPDATE_QTY } from '../const/CartConstant';
 
 export default function Cart() {
     const dispatch = useDispatch();
 
     const popup_type = useSelector(state => state.PopupReducer.popup_type);
-    const cartItems = useSelector(state => state.CartReducer.cartItems);
+    const cartItems = useSelector(state => state.CartReducer.cartItems); // danh sách cart
+    const totalPrice = cartItems.reduce((total, item) => total + Number(item.sale_price * item.qty), 0); // tổng tiền cart
 
     const fade = popup_type === 'POPUP_CART' ? '' : 'fade';
     const display = popup_type === 'POPUP_CART' ? 'block' : 'none';
 
+    // Đóng popup
     const handleClosePopup = () => {
         const action = { type: POPUP_CLOSE }
+        dispatch(action);
+    }
+
+    // Xóa giỏ hàng
+    const handleRemoveProductOutCart = (id) => {
+        const action = { type: REMOVE_FROM_CART, payload: { id: id } };
+        dispatch(action);
+    }
+
+    // Cập nhật số lượng giỏ hàng
+    const handleUpdateQty = (id, qty) => {
+        const action = { type: UPDATE_QTY, payload: { id: id, qty: qty } };
         dispatch(action);
     }
 
@@ -66,10 +82,10 @@ export default function Cart() {
                                                             <div><img className="img-responsive" src={item.featured_image} alt={item.name} /></div>
                                                         </div>
                                                         <div className="col-sm-6 col-md-3"><Link className="product-name" to="#">{item.name}</Link></div>
-                                                        <div className="col-sm-6 col-md-2"><span className="product-item-discount">{item.sale_price}₫</span></div>
-                                                        <div className="col-sm-6 col-md-3"><input type="hidden" defaultValue={1} /><input type="number" onchange="updateProductInCart(this,2)" min={1} defaultValue={item.qty} /></div>
-                                                        <div className="col-sm-6 col-md-2"><span>190,000₫</span></div>
-                                                        <div className="col-sm-6 col-md-1"><Link className="remove-product" to="#" onclick="deleteProductInCart(2)"><span className="glyphicon glyphicon-trash" /></Link></div>
+                                                        <div className="col-sm-6 col-md-2"><span className="product-item-discount">{formatMoney(item.sale_price)}₫</span></div>
+                                                        <div className="col-sm-6 col-md-3"><input type="number" onChange={(e) => handleUpdateQty(item.id, e.target.value)} min={1} value={item.qty} /></div>
+                                                        <div className="col-sm-6 col-md-2"><span>{formatMoney(item.sale_price * item.qty)}₫</span></div>
+                                                        <div className="col-sm-6 col-md-1"><Link className="remove-product" to="#" onClick={() => handleRemoveProductOutCart(item.id)}><span className="glyphicon glyphicon-trash" /></Link></div>
                                                     </div>
                                                 </div>
                                             </>
@@ -84,10 +100,10 @@ export default function Cart() {
                                 <div className="col-xs-12 text-right">
                                     <p>
                                         <span>Tổng tiền</span>
-                                        <span className="price-total">1,230,000₫</span>
+                                        <span className="price-total">{formatMoney(totalPrice)}₫</span>
                                     </p>
-                                    <input type="button" name="back-shopping" className="btn btn-default" defaultValue="Tiếp tục mua sắm" />
-                                    <input type="button" name="checkout" className="btn btn-primary" defaultValue="Đặt hàng" />
+                                    <Link onClick={() => handleContinueShop()} name="back-shopping" className="btn btn-default">Tiếp tục mua sắm</Link>
+                                    <Link onClick={() => handleOrder()} name="checkout" className="btn btn-primary">Đặt hàng</Link>
                                 </div>
                             </div>
                         </div>
