@@ -1,4 +1,4 @@
-import { ADD_TO_CART, EMPTY_QTY, REMOVE_FROM_CART, UPDATE_QTY } from "../const/CartConstant";
+import { ADD_TO_CART, EMPTY_CART, REMOVE_FROM_CART, UPDATE_QTY } from "../const/CartConstant";
 import { pre_add_to_cart, pre_remove_from_cart, pre_update_cart } from "../helper/util";
 
 const cart = localStorage.getItem("cart");
@@ -43,8 +43,15 @@ const CartReducer = (state = initialState, action) => {
                 return newCart;
             }
 
-        case EMPTY_QTY:
-            return;
+        case EMPTY_CART:
+            {
+                const newCart = {
+                    cartItems: []
+                };
+
+                localStorage.removeItem("cart");
+                return newCart;
+            }
 
         default:
             return state;

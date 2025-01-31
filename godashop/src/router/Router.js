@@ -14,6 +14,7 @@ import Account from '../page/Account'
 import ProductDetail from '../page/ProductDetail'
 import Order from '../page/Order'
 import OrderDetail from '../page/OrderDetail'
+import Checkout from '../page/Checkout'
 
 
 export default function Router() {
@@ -43,6 +44,8 @@ export default function Router() {
                     <Route path="/don-hang-cua-toi.html" element={<ProtectedRouter><Order /></ProtectedRouter>} />
                     {/* Chi tiết đơn hàng */}
                     <Route path="/don-hang/:slug" element={<ProtectedRouter><OrderDetail /></ProtectedRouter>} />
+                    {/* Đặt hàng */}
+                    <Route path="/dat-hang.html" element={<ProtectedRouter><Checkout /></ProtectedRouter>} />
                 </Route>
             </Routes>
         </>

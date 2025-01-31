@@ -1,11 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { POPUP_CLOSE } from '../const/PopupConstant';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { formatMoney } from '../helper/util';
 import { REMOVE_FROM_CART, UPDATE_QTY } from '../const/CartConstant';
 
 export default function Cart() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const popup_type = useSelector(state => state.PopupReducer.popup_type);
@@ -31,6 +32,20 @@ export default function Cart() {
     const handleUpdateQty = (id, qty) => {
         const action = { type: UPDATE_QTY, payload: { id: id, qty: qty } };
         dispatch(action);
+    }
+
+    // Tiếp tục mua hàng
+    const handleContinueShop = (e) => {
+        e.preventDefault();
+        handleClosePopup(); // tắt popup
+        navigate('/san-pham.html');
+    }
+
+    // Đặt hàng
+    const handleOrder = (e) => {
+        e.preventDefault();
+        handleClosePopup(); // tắt popup
+        navigate('/dat-hang.html');
     }
 
     return (
@@ -102,8 +117,8 @@ export default function Cart() {
                                         <span>Tổng tiền</span>
                                         <span className="price-total">{formatMoney(totalPrice)}₫</span>
                                     </p>
-                                    <Link onClick={() => handleContinueShop()} name="back-shopping" className="btn btn-default">Tiếp tục mua sắm</Link>
-                                    <Link onClick={() => handleOrder()} name="checkout" className="btn btn-primary">Đặt hàng</Link>
+                                    <Link onClick={(e) => handleContinueShop(e)} name="back-shopping" className="btn btn-default">Tiếp tục mua sắm</Link>
+                                    <Link onClick={(e) => handleOrder(e)} name="checkout" className="btn btn-primary">Đặt hàng</Link>
                                 </div>
                             </div>
                         </div>
